@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .cabecera {
+            background-color: #FFF6EF;
+            width: 100%;
+            height: 150px;
+            text-align: center;
+        }
+
+        .contenedor {
+            width: 100%;
+            height: 380px;
+            display: flex;
+        }
+
+        .menu {
+            text-align: center;
+            background-color: #CEE1DD;
+            width: 20%;
+            padding: 10px;
+        }
+
+        .cuerpo {
+            text-align: center;
+            background-color: #C0C6DC;
+            width: 80%;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .pie {
+            text-align: center;
+            background-color: #9ec2c4;
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+        }
+
+        .tabcontent {
+            display: none;
+        }
+
+        .tablinks {
+            background-color: #f1f1f1;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            border: none;
+        }
+
+        .tablinks:hover {
+            background-color: #ddd;
+        }
+
+        .active {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header class="cabecera">
+        <h1>EXAMEN FINAL INF-113</h1>
+    </header>
+
+    <main class="contenedor">
+        <aside class="menu">
+            <h1>PROBLEMAS</h1>
+            <button class="tablinks" onclick="openTab(event, 'eje1')">1. Suma de factoriales</button>
+            <button class="tablinks" onclick="openTab(event, 'eje2')">2. Generador de primos</button>
+            <button class="tablinks" onclick="openTab(event, 'eje3')">3. Calculadora</button>
+            <button class="tablinks" onclick="openTab(event, 'eje4')">4. Palíndromos</button>
+            <button class="tablinks" onclick="openTab(event, 'eje5')">5. Rotación por derecha</button>
+        </aside>
+
+        <section class="cuerpo">
+            <!-- Ejercicio 1: Suma de Factoriales -->
+            <div id="eje1" class="tabcontent">
+                <h1>Suma de Factoriales</h1>
+                <form name="formuFactorial">
+                    <table border="1" align="center">
+                        <tr>
+                            <td>Introduce un número:</td>
+                            <td><input type="text" name="num"></td>
+                            <td><input type="button" value="Calcular" onclick="calcularFactorial()"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Resultado: <input type="text" name="resultado" readonly></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <script>
+                function calcularFactorial() {
+                    let n = parseInt(document.formuFactorial.num.value);
+                    let resultado = 0;
+
+                    // Función para calcular el factorial de un número
+                    function factorial(num) {
+                        let fact = 1;
+                        for (let i = 1; i <= num; i++) {
+                            fact *= i;
+                        }
+                        return fact;
+                    }
+
+                    // Sumar los factoriales hasta N
+                    for (let i = 1; i <= n; i++) {
+                        resultado += factorial(i);
+                    }
+
+                    document.formuFactorial.resultado.value = resultado;
+                }
+            </script>
+
+            <!-- Ejercicio 2: Generador de Primos -->
+            <div id="eje2" class="tabcontent">
+                <h1>GENERADOR DE PRIMOS</h1>
+                <form name="formuPrimos">
+                    <table border="1" align="center">
+                        <tr>
+                            <td>Introduce N:</td>
+                            <td><input type="text" name="num" placeholder="Número"></td>
+                            <td><input type="button" value="Generar Primos" onclick="generarPrimos()"></td>
+                        </tr>
+                    </table>
+                </form>
+                <div id="resultado" align="center"></div>
+            </div>
+
+            <script>
+                function generarPrimos() {
+                    let n = parseInt(document.formuPrimos.num.value);
+                    let resultado = "";
+                    for (let i = 2, contador = 1; i <= n; i++) {
+                        if (esPrimo(i)) {
+                            resultado += `Primo (${contador}) = ${i}<br>`;
+                            contador++;
+                        }
+                    }
+                    document.getElementById("resultado").innerHTML = resultado;
+                }
+
+                function esPrimo(num) {
+                    for (let i = 2; i <= Math.sqrt(num); i++) {
+                        if (num % i === 0) return false;
+                    }
+                    return true;
+                }
+            </script>
+
+            <!-- Ejercicio 3: Calculadora -->
+            <div id="eje3" class="tabcontent">
+                <h1>CALCULADORA</h1>
+                <form name="formuCalculadora">
+                    <table border="1" align="center">
+                        <tr>
+                            <td>Num 1</td>
+                            <td><input type="text" name="num1" placeholder="Introduce un número"></td>
+                        </tr>
+                        <tr>
+                            <td>Num 2</td>
+                            <td><input type="text" name="num2" placeholder="Introduce un número"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="button" value="Suma" onclick="sumar()">
+                                <input type="button" value="Resta" onclick="restar()">
+                                <input type="button" value="Multiplicar" onclick="multiplicar()">
+                                <input type="button" value="Dividir" onclick="dividir()">
+                                <input type="button" value="Factorial" onclick="factorial()">
+                                <input type="button" value="Potencia (x^y)" onclick="potencia()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resultado</td>
+                            <td><input type="text" name="resultado" readonly></td>
+                        </tr>
+                    </table>
+                </form>
+
+                <script>
+                    function sumar() {
+                        let n1 = parseFloat(document.formuCalculadora.num1.value);
+                        let n2 = parseFloat(document.formuCalculadora.num2.value);
+                        document.formuCalculadora.resultado.value = n1 + n2;
+                    }
+
+                    function restar() {
+                        let n1 = parseFloat(document.formuCalculadora.num1.value);
+                        let n2 = parseFloat(document.formuCalculadora.num2.value);
+                        document.formuCalculadora.resultado.value = n1 - n2;
+                    }
+
+                    function multiplicar() {
+                        let n1 = parseFloat(document.formuCalculadora.num1.value);
+                        let n2 = parseFloat(document.formuCalculadora.num2.value);
+                        document.formuCalculadora.resultado.value = n1 * n2;
+                    }
+
+                    function dividir() {
+                        let n1 = parseFloat(document.formuCalculadora.num1.value);
+                        let n2 = parseFloat(document.formuCalculadora.num2.value);
+                        if (n2 !== 0) {
+                            document.formuCalculadora.resultado.value = n1 / n2;
+                        } else {
+                            document.formuCalculadora.resultado.value = "Error: División por cero";
+                        }
+                    }
+
+                    function factorial() {
+                        let num = parseInt(document.formuCalculadora.num1.value);
+                        let result = 1;
+                        for (let i = 1; i <= num; i++) {
+                            result *= i;
+                        }
+                        document.formuCalculadora.resultado.value = result;
+                    }
+
+                    function potencia() {
+                        let base = parseFloat(document.formuCalculadora.num1.value);
+                        let exponente = parseFloat(document.formuCalculadora.num2.value);
+                        document.formuCalculadora.resultado.value = Math.pow(base, exponente);
+                    }
+                </script>
+            </div>
+
+            <!-- Ejercicio 4: Palíndromos -->
+            <div id="eje4" class="tabcontent">
+                <h1>CADENAS PALÍNDROMOS</h1>
+                <form name="formuPalindromo">
+                    <table border="1" align="center">
+                        <tr>
+                            <td>Introduce una cadena:</td>
+                            <td><input type="text" name="cadena"></td>
+                            <td><input type="button" value="Comprobar" onclick="esPalindromo()"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Resultado: <input type="text" name="resultado" readonly></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <script>
+                function esPalindromo() {
+                    let cadena = document.formuPalindromo.cadena.value.toLowerCase().replace(/\s+/g, '');
+                    let invertida = cadena.split('').reverse().join('');
+                    if (cadena === invertida) {
+                        document.formuPalindromo.resultado.value = "Es Palíndromo";
+                    } else {
+                        document.formuPalindromo.resultado.value = "No es Palíndromo";
+                    }
+                }
+            </script>
+
+            <!-- Ejercicio 5: Rotación por derecha -->
+            <div id="eje5" class="tabcontent">
+                <h1>ROTAR A LA DERECHA</h1>
+                <form name="formuRotar">
+                    <table border="1" align="center">
+                        <tr>
+                            <td>Introduce un número:</td>
+                            <td><input type="text" name="num"></td>
+                            <td><input type="button" value="Rotar Pares" onclick="rotarPares()"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Número Rotado: <input type="text" name="resultado" readonly></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+            <script>
+                function rotarPares() {
+                    let num = document.formuRotar.num.value;
+                    let pares = [];
+                    let impares = [];
+
+                    for (let i = 0; i < num.length; i++) {
+                        if (parseInt(num[i]) % 2 === 0) {
+                            pares.push(num[i]);
+                        } else {
+                            impares.push(num[i]);
+                        }
+                    }
+
+                    if (pares.length > 0) {
+                        pares.unshift(pares.pop());
+                    }
+
+                    let resultado = "";
+                    for (let i = 0; i < num.length; i++) {
+                        resultado += pares.includes(num[i]) ? pares.shift() : impares.shift();
+                    }
+
+                    document.formuRotar.resultado.value = resultado;
+                }
+            </script>
+        </section>
+    </main>
+
+    <footer class="pie">
+        DATOS <br/>
+        Univ. Jhesica Laura Colque Huchani<br/>
+        DOCENTE: Ph. D. Jose Maria Tapia<br/>
+        CORREO: jcolque@fcpn.edu.bo<br/>
+        R.U.: 1878100
+    </footer>
+
+    <script>
+        function openTab(evt, ejercicio) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(ejercicio).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Muestra el primer ejercicio por defecto
+        document.getElementsByClassName("tablinks")[0].click();
+    </script>
+</body>
+</html>
